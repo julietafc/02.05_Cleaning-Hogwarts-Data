@@ -35,20 +35,19 @@ function prepareObjects(jsonData) {
   console.table(allStudents);
 }
 
-function getFirstName(fullName) {
-  const noSpace = fullName.trimStart(fullName);
-  const firstName = noSpace.substring(0, noSpace.indexOf(" "));
-  const initial = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
-  return initial;
+function getFirstName(fullname) {
+  const firstName = fullname.slice(0, fullname.indexOf(" "));
+  const cleanData = cleanResult(firstName);
+  return cleanData;
 }
 
-function getMiddleName(fullName) {
-  const noSpace = fullName.trimStart(fullName);
-  if (noSpace.includes(" ") === true) {
-    const middleName = noSpace.slice(noSpace.indexOf(" ") + 1, noSpace.lastIndexOf(" "));
-    const initial = middleName.substring(0, 1).toUpperCase() + middleName.substring(1).toLowerCase();
-    return initial;
+function getMiddleName(fullname) {
+  if (fullname.includes(" ") === true) {
+    const middleName = fullname.slice(fullname.indexOf(" ") + 1, fullname.lastIndexOf(" "));
+    const cleanData = cleanResult(middleName);
+    return cleanData;
   }
+
   // need to clean "" in middle name
 }
 
@@ -58,25 +57,29 @@ function getNickName(fullname) {
   if (initial === '"') {
     length = nickname.length;
     const noQuotes = nickname.slice(1, length - 1);
-    return noQuotes;
+    const cleanData = cleanResult(noQuotes);
+    return cleanData;
   }
 }
 
-function getLastName(fullName) {
-  const noSpace = fullName.trimStart(fullName);
-  const lastName = noSpace.substring(noSpace.lastIndexOf(" ") + 1);
-  const initial = lastName.substring(0, 1).toUpperCase() + lastName.substring(1).toLowerCase();
-  return initial;
+function getLastName(fullname) {
+  const lastName = fullname.substring(fullname.lastIndexOf(" ") + 1);
+  const cleanData = cleanResult(lastName);
+  return cleanData;
 }
 
-function getImage(firstname, lastname) {
-  // "'${lastName}`.png";
-}
+function getImage(firstname, lastname) {}
 
 function getHouse(house) {
-  const noSpace = house.trim(house);
-  const initial = noSpace.substring(0, 1).toUpperCase() + noSpace.substring(1).toLowerCase();
-  return initial;
+  const cleanData = cleanResult(house);
+  return cleanData;
+}
+
+function cleanResult(name) {
+  const noSpaces = name.trim(name);
+  const initial = noSpaces.substring(0, 1).toUpperCase() + noSpaces.substring(1).toLowerCase();
+  const cleanData = initial;
+  return cleanData;
 }
 
 // TODO: Clean nickname "ernie"
