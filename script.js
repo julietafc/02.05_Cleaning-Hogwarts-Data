@@ -28,13 +28,12 @@ function prepareObjects(jsonData) {
     student.middlename = getMiddleName(object.fullname);
     student.nickname = getNickName(object.fullname);
     student.lastname = getLastName(object.fullname);
-    student.house = getHouse(object.house);
     student.image = getImage(object);
+    student.house = getHouse(object.house);
     allStudents.push(student);
   });
+  console.table(allStudents);
 }
-
-console.log(allStudents);
 
 function getFirstName(fullName) {
   const noSpace = fullName.trimStart(fullName);
@@ -45,19 +44,22 @@ function getFirstName(fullName) {
 
 function getMiddleName(fullName) {
   const noSpace = fullName.trimStart(fullName);
-
-  const middleName = noSpace.substring(noSpace.indexOf(" ") + 1, noSpace.lastIndexOf(" "));
-  // // if statement if the student doesn't have middlename
-  // const quotes = fullName.subtring(fullName.match(/\("[^)]+"\)/)[1]);
-  const initial = middleName.substring(0, 1).toUpperCase() + middleName.substring(1).toLowerCase();
-  return initial;
+  if (noSpace.includes(" ") === true) {
+    const middleName = noSpace.slice(noSpace.indexOf(" ") + 1, noSpace.lastIndexOf(" "));
+    const initial = middleName.substring(0, 1).toUpperCase() + middleName.substring(1).toLowerCase();
+    return initial;
+  }
+  // need to clean "" in middle name
 }
 
-// getting nickname
-function getNickName(fullName) {
-  //   const nosign = fullName.substring(fullName.split(""""));
-  //   return nosign;
-  // return quotes;
+function getNickName(fullname) {
+  const nickname = fullname.slice(fullname.indexOf(" ") + 1, fullname.lastIndexOf(" "));
+  const initial = nickname.slice(0, 1);
+  if (initial === '"') {
+    length = nickname.length;
+    const noQuotes = nickname.slice(1, length - 1);
+    return noQuotes;
+  }
 }
 
 function getLastName(fullName) {
@@ -67,20 +69,14 @@ function getLastName(fullName) {
   return initial;
 }
 
-function getImage() {
-  //   let img = document.createElement('img');
-  //   img.src =
+function getImage(firstname, lastname) {
   // "'${lastName}`.png";
-  //   document.getElementById('body').appendChild(img);
-  //   down.innerHTML = "Image Element Added.";
 }
 
 function getHouse(house) {
-  const noSpace = house.trimStart(house);
+  const noSpace = house.trim(house);
   const initial = noSpace.substring(0, 1).toUpperCase() + noSpace.substring(1).toLowerCase();
   return initial;
 }
 
-// TODO: Get MiddleName and Nickname
-
-// make the information appears on list
+// TODO: Clean nickname "ernie"
