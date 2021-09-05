@@ -68,7 +68,15 @@ function getLastName(fullname) {
   return cleanData;
 }
 
-function getImage(firstname, lastname) {}
+function getImage(firstname, lastname) {
+  if (lastname !== undefined) {
+    const lastnameLowcase = lastname.toLowerCase();
+    const firstnameLowcase = firstname.toLowerCase();
+    const initialName = firstnameLowcase.slice(0, 1).toLowerCase;
+    const imageName = `${lastnameLowcase}_${initialName}.png`;
+    return imageName;
+  }
+}
 
 function getHouse(house) {
   const cleanData = cleanResult(house);
